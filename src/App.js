@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import './App.css'
 import Person from './Person/Person'
-import Radium from 'radium';
+import Radium, { StyleRoot } from 'radium';
 class App extends Component {
 
 
   state = {
     persons: [
-      { id:'asaads',name: 'Max', age: 28 },
-      { id:'dsfdf',name: 'Martin', age: 25 },
-      { id:'waasd',name: 'Alex', age: 27 }
+      { id: 'asaads', name: 'Max', age: 28 },
+      { id: 'dsfdf', name: 'Martin', age: 25 },
+      { id: 'waasd', name: 'Alex', age: 27 }
     ],
     showPersons: false
   }
@@ -37,7 +37,7 @@ class App extends Component {
     person.name = event.target.value
     const persons = [...this.state.persons]
     persons[personIndex] = person
-     
+
     this.setState({
       persons: persons
     })
@@ -48,9 +48,9 @@ class App extends Component {
 
     // copy the same array
     const persons = [...this.state.persons]
-    persons.splice(personIndex,1)
+    persons.splice(personIndex, 1)
     this.setState({
-      persons:persons
+      persons: persons
     })
   }
 
@@ -62,15 +62,15 @@ class App extends Component {
   }
   render() {
     const style = {
-      backgroundColor:'green',
-      color:'white',
+      backgroundColor: 'green',
+      color: 'white',
       font: 'inherit',
-      border:'1px solid blue',
-      padding:'8px',
-      cursor:'pointer',
-      ':hover':{
-        backgroundColor:'lightgreen',
-        color:'black'
+      border: '1px solid blue',
+      padding: '8px',
+      cursor: 'pointer',
+      ':hover': {
+        backgroundColor: 'lightgreen',
+        color: 'black'
       }
     }
     let persons = null;
@@ -84,15 +84,15 @@ class App extends Component {
               name={person.name}
               age={person.age}
               key={person.id}
-              changed={(e)=>this.nameChangeHandler(e,person.id)} />
+              changed={(e) => this.nameChangeHandler(e, person.id)} />
           ))}
         </div>
       )
 
       style.backgroundColor = 'red'
-      style[':hover']={
-        backgroundColor:'salmon',
-        color:'black'
+      style[':hover'] = {
+        backgroundColor: 'salmon',
+        color: 'black'
       }
     }
 
@@ -100,20 +100,23 @@ class App extends Component {
     if (this.state.persons.length <= 2) {
       classes.push('red')
     }
-    if(this.state.persons.length <= 1){
+    if (this.state.persons.length <= 1) {
       classes.push('bold')
     }
 
     return (
-      <div className="App">
-        <h1>Hi shut the fuck up</h1>
-        <p className={classes.join(' ')}>This is really working</p>
-        <button 
-          style={style}
-          onClick={this.togglePersonsHandler}>Toggle Persons</button>
-        {this.state.showPersons ? persons : null}
+      <StyleRoot>
+        <div className="App">
+          <h1>Hi shut the fuck up</h1>
+          <p className={classes.join(' ')}>This is really working</p>
+          <button
+            style={style}
+            onClick={this.togglePersonsHandler}>Toggle Persons</button>
+          {this.state.showPersons ? persons : null}
 
-      </div>
+        </div>
+      </StyleRoot>
+
     )
   }
 }
