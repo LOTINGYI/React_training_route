@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import classes from './App.css'
-import Person from './Person/Person'
+import Person from './components/Persons/Person/Person'
+import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 class App extends Component {
 
 
@@ -60,7 +61,7 @@ class App extends Component {
     })
   }
   render() {
-    
+
     let persons = null;
     let btnClass = '';
 
@@ -68,12 +69,15 @@ class App extends Component {
       persons = (
         <div>
           {this.state.persons.map((person, index) => (
-            <Person
-              click={() => this.deletePersonHandler(index)}
-              name={person.name}
-              age={person.age}
-              key={person.id}
-              changed={(e) => this.nameChangeHandler(e, person.id)} />
+            // ErrorBoundary is so called higher order component
+            // Please notice the key always has to be on the outer element under the map method
+            <ErrorBoundary key={person.id}> 
+              <Person
+                click={() => this.deletePersonHandler(index)}
+                name={person.name}
+                age={person.age}
+                changed={(e) => this.nameChangeHandler(e, person.id)} />
+            </ErrorBoundary>
           ))}
         </div>
       )
